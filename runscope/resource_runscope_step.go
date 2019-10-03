@@ -41,6 +41,11 @@ func resourceRunscopeStep() *schema.Resource {
 				Optional: true,
 				ForceNew: false,
 			},
+			"test_uuid": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: false,
+			},
 			// TODO: rename to "variable" for better UX
 			"variables": {
 				Type: schema.TypeSet,
@@ -264,6 +269,10 @@ func createStepFromResourceData(d *schema.ResourceData) (*runscope.TestStep, str
 
 	if attr, ok := d.GetOk("url"); ok {
 		step.URL = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("test_uuid"); ok {
+		step.TestUUID = attr.(string)
 	}
 
 	if attr, ok := d.GetOk("variables"); ok {
